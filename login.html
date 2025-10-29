@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Administration System - Login</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="header">
+        <a href="#" class="logo"></a><img src="LMS.png" alt="logo">
+    </div>
+    <div class="content">
+        <div class="container">
+            <h3>Login</h3>
+            <form id="loginForm">
+                <label for="username">Username: </label>
+                <input type="text" id="username" placeholder="Enter your username" required><br>
+                <label for="password">Password: </label>
+                <input type="password" id="password" placeholder="Enter your password" required><br>
+                <button type="button" onclick="validateLogin()">Login</button>
+                <button type="button" onclick="forgotPassword()">Forgot your Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "user" && password === "user") {
+                window.location.href = "Udashboard.html";
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+
+        function forgotPassword() {
+            var registrationNumber = prompt("Enter your registration number:");
+            if (registrationNumber === "22BCE0521") {
+                alert("Your username is 'user' and password is 'user'.");
+            } else {
+                alert("Invalid registration number. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

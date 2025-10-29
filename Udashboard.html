@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="Udashboard.css">
+</head>
+<body>
+    <div class="dashboard">
+        <h2>User Dashboard</h2>
+        <ul>
+            <li><button onclick="goViewCourses()"id="h">View Courses</button></li>
+            <li><button onclick="goRegisterCourses()" id = "h">Register for Courses</button></li>
+            <li><button onclick="goDeleteCourse()" id = "h">Delete Registered Course</button></li>
+            <li><button onclick="goViewHistory()" id = "h">View Course Completion History</button></li>
+            <li><button onclick="goHomepage()" id="j">Homepage</button></li>
+        </ul>
+    </div>
+    <script>
+        function goViewCourses() {
+            window.location.href = 'view_courses.html';
+        }
+        
+        function goRegisterCourses() {
+            window.location.href = 'register_courses.html';
+        }
+        
+        function goDeleteCourse() {
+            window.location.href = 'delete_course.html';
+        }
+        
+        function goViewHistory() {
+            window.location.href = 'view_history.html';
+        }
+        
+        function goHomepage() {
+            window.location.href = 'Homepage.html';
+        }
+    </script>
+</body>
+</html>

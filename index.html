@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Administration System - Login</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <hr class="separator">
+        <form id="loginForm"> 
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" placeholder="Enter your username" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" placeholder="Enter your password" required><br>
+            <button type="button" onclick="validateLogin()">Login</button> 
+            <button type="button" onclick="forgotPassword()">Forgot your password</button>
+        </form>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "admin" && password === "admin") {
+                window.location.href="dashboard.html";
+            } else {
+                alert("Invalid username or password. Please try again.");
+                
+            }
+        }
+
+        function forgotPassword() {
+            var registrationNumber = prompt("Enter your registration number:");
+            if (registrationNumber === "22BCE0521") {
+                alert("Your username is 'user' and password is 'user'.");
+            } else {
+                alert("Invalid registration number. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

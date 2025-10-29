@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Course</title>
+    <link rel="stylesheet" type="text/css" href="postcourse.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Post Course Details</h2>
+        <form id="postCourseForm">
+            <input type="text" id="courseTitle" placeholder="Course Title" required><br>
+            <input type="text" id="courseSchedule" placeholder="Course Schedule" required><br>
+            <button type="button" onclick="postCourse()">Post Course</button>
+        </form>
+        <button onclick="goBack()">Back</button>
+    </div>
+    <script>
+        function postCourse() {
+            var courseTitle = document.getElementById("courseTitle").value;
+            var courseSchedule = document.getElementById("courseSchedule").value;
+            var course = { title: courseTitle, schedule: courseSchedule };
+            var courses = JSON.parse(localStorage.getItem("courses")) || [];
+            courses.push(course);
+            localStorage.setItem("courses", JSON.stringify(courses));
+            alert("Course posted successfully.");
+            document.getElementById("postCourseForm").reset();
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

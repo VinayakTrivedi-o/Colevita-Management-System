@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Courses</title>
+    <link rel="stylesheet" href="register_courses.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register for Courses</h2>
+    </div>
+    <div class="course-list-container">
+        <h3>Available Courses</h3>
+        <select id="courseListItems" multiple>
+ 
+        </select>
+    </div>
+    <div class="registration-form-container">
+        <form id="courseRegistrationForm">
+            <label for="selectedCourses">Select Courses to Register:</label><br>
+            <select id="selectedCourses" multiple>
+
+            </select><br><br>
+            <label for="payFees">Pay Fees:</label>
+            <input type="checkbox" id="payFees" name="payFees"><br><br>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <button onclick="goDash()">Dashboard</button>
+
+    <script>
+
+        function fetchAndRenderCourseList() {
+            var courses = JSON.parse(localStorage.getItem("courses")) || [];
+            var courseList = document.getElementById("courseListItems");
+            var courseSelect = document.getElementById("selectedCourses");
+            courseList.innerHTML = ""; 
+            courses.forEach(function(course, index) {
+                var option = document.createElement("option");
+                option.value = index;
+                option.textContent = course.title + " - " + course.schedule;
+                courseList.appendChild(option);
+
+                var selectOption = document.createElement("option");
+                selectOption.value = index;
+                selectOption.textContent = course.title;
+                courseSelect.appendChild(selectOption);
+            });
+        }
+
+        function registerCourses(event) {
+            event.preventDefault(); 
+
+            var selectedCourses = document.getElementById("selectedCourses").selectedOptions;
+            var payFees = document.getElementById("payFees").checked;
+            var registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || [];
+            var selectedCourseTitles = [];
+            for (var i = 0; i < selectedCourses.length; i++) {
+                selectedCourseTitles.push(selectedCourses[i].textContent);
+            }
+            registeredCourses.push(...selectedCourseTitles);
+
+            localStorage.setItem("registeredCourses", JSON.stringify(registeredCourses));
+
+            alert("Registration Successful!"); 
+
+            document.getElementById("courseRegistrationForm").reset();
+        }
+
+        window.onload = function() {
+            fetchAndRenderCourseList();
+            document.getElementById("courseRegistrationForm").addEventListener("submit", registerCourses);
+        };
+        function goDash(){
+            window.location.href='Udashboard.html';
+        }
+    </script>
+</body>
+</html>

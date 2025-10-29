@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Courses</title>
+    <link rel="stylesheet" href="view_courses.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Available Courses</h2>
+        <ul id="courseListItems"></ul>
+    </div>
+    <button onclick="goDash()">Dashboard</button>
+    <script>
+       
+        function fetchAndRenderCourseList() {
+           
+            var courses = JSON.parse(localStorage.getItem("courses")) || [];
+            var courseListItems = document.getElementById("courseListItems");
+            courseListItems.innerHTML = ""; 
+            courses.forEach(function(course) {
+                var listItem = document.createElement("li");
+                listItem.textContent = course.title + " - " + course.schedule;
+                courseListItems.appendChild(listItem); 
+            });
+        }
+
+        window.onload = function() {
+            fetchAndRenderCourseList();
+        };
+        
+        function goDash() {
+            window.location.href = 'Udashboard.html';
+        }
+    </script>
+</body>
+</html>

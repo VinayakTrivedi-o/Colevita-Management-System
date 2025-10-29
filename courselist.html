@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course List</title>
+    <link rel="stylesheet" type="text/css" href="courselist.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Course List</h2>
+        <ul id="courseListItems"></ul>
+        
+        <button id = "he" onclick="goBack()">Dashboard</button>
+    </div>
+    <script>
+        function goBack() {
+            window.location.href='dashboard.html';
+        }
+        function deleteCourse(index) {
+            var courses = JSON.parse(localStorage.getItem("courses")) || [];
+            courses.splice(index, 1); 
+            localStorage.setItem("courses", JSON.stringify(courses)); 
+            renderCourseList(); 
+        }
+
+        function editCourse(index) {
+            var courses = JSON.parse(localStorage.getItem("courses")) || [];
+            var newTitle = prompt("Enter the new title for the course:");
+            var newSchedule = prompt("Enter the new schedule for the course:");
+            if (newTitle && newSchedule) {
+                courses[index].title = newTitle;
+                courses[index].schedule = newSchedule;
+                localStorage.setItem("courses", JSON.stringify(courses)); 
+                renderCourseList(); 
+            }
+        }
+
+        function renderCourseList() {
+            var courses = JSON.parse(localStorage.getItem("courses")) || [];
+            var courseListItems = document.getElementById("courseListItems");
+            courseListItems.innerHTML = ""; 
+            courses.forEach(function(course, index) {
+                var listItem = document.createElement("li");
+                listItem.textContent = course.title + " - " + course.schedule;
+                
+                var buttonsDiv = document.createElement("div");
+                buttonsDiv.classList.add("buttons");
+                
+                var editButton = document.createElement("button");
+                editButton.textContent = "Edit";
+                editButton.onclick = function() {
+                    editCourse(index);
+                };
+                
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.onclick = function() {
+                    deleteCourse(index); 
+                };
+                
+                buttonsDiv.appendChild(editButton);
+                buttonsDiv.appendChild(deleteButton);
+                listItem.appendChild(buttonsDiv); 
+                courseListItems.appendChild(listItem); 
+            });
+        }
+
+        window.onload = function() {
+            renderCourseList();
+        };
+    </script>
+</body>
+</html>

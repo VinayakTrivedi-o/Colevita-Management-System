@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Completed Courses</title>
+    <link rel="stylesheet" href="view_history.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Completed Courses</h2>
+        <ul id="completedCoursesList"></ul>
+        <button onclick="goToDashboard()">Back to Dashboard</button>
+        <button onclick="clearCompletedCourses()">Clear All Completed Courses</button>
+    </div>
+
+    <script>
+        function fetchAndRenderCompletedCourseList() {
+ 
+            var completedCourses = JSON.parse(localStorage.getItem("completedCourses")) || [];
+            var completedCoursesList = document.getElementById("completedCoursesList");
+            completedCoursesList.innerHTML = ""; 
+            completedCourses.forEach(function(course) {
+                var listItem = document.createElement("li");
+                listItem.textContent = course;
+                completedCoursesList.appendChild(listItem); 
+            });
+        }
+        window.onload = function() {
+            fetchAndRenderCompletedCourseList();
+        };
+        function goToDashboard() {
+            window.location.href = 'Udashboard.html';
+        }
+
+        function clearCompletedCourses() {
+            localStorage.removeItem("completedCourses"); 
+            fetchAndRenderCompletedCourseList(); 
+        }
+    </script>
+</body>
+</html>

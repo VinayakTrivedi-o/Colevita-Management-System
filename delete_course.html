@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Registered Courses</title>
+    <link rel="stylesheet" type="text/css" href="delete_course.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Modify Registered Courses</h2>
+        <ul id="registeredCoursesList"></ul>
+        <form id="deleteCourseForm">
+            <label for="selectedCourses">Select Course to Manage:</label><br>
+            <select id="selectedCourseToDelete">
+            </select><br><br>
+            <input type="checkbox" id="markCompleted" name="markCompleted">
+            <label for="markCompleted">Mark as Completed</label><br><br>
+            <div class="buttons">
+                <button type="submit">Update</button>
+                <button type="button" onclick="deleteCourse()">Delete</button>
+            </div>
+        </form>
+        <button type = "button1" onclick="goDash()">Dashboard</button>
+    </div>
+
+
+
+    <script>
+
+        function fetchAndRenderRegisteredCourseList() {
+ 
+            var registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || [];
+            var registeredCoursesList = document.getElementById("registeredCoursesList");
+            var courseSelect = document.getElementById("selectedCourseToDelete");
+            registeredCoursesList.innerHTML = ""; 
+            registeredCourses.forEach(function(course, index) {
+                var listItem = document.createElement("li");
+                listItem.textContent = course;
+                registeredCoursesList.appendChild(listItem); 
+
+                var option = document.createElement("option");
+                option.value = index;
+                option.textContent = course;
+                courseSelect.appendChild(option);
+            });
+        }
+        function updateCourse(event) {
+            event.preventDefault(); 
+            var selectedIndex = document.getElementById("selectedCourseToDelete").value;
+            var markCompleted = document.getElementById("markCompleted").checked;
+            var registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || [];
+            var completedCourses = JSON.parse(localStorage.getItem("completedCourses")) || [];
+
+            if (markCompleted) {
+                var courseToComplete = registeredCourses[selectedIndex];
+                completedCourses.push(courseToComplete); 
+                localStorage.setItem("completedCourses", JSON.stringify(completedCourses)); 
+                registeredCourses.splice(selectedIndex, 1);
+                localStorage.setItem("registeredCourses", JSON.stringify(registeredCourses)); 
+                fetchAndRenderRegisteredCourseList(); 
+                alert("Course marked as completed!");
+            } 
+          
+        }
+
+        function deleteCourse() {
+            var selectedIndex = document.getElementById("selectedCourseToDelete").value;
+            var registeredCourses = JSON.parse(localStorage.getItem("registeredCourses")) || [];
+            registeredCourses.splice(selectedIndex, 1); 
+
+            localStorage.setItem("registeredCourses", JSON.stringify(registeredCourses));
+
+          
+            fetchAndRenderRegisteredCourseList();
+            alert("Course deleted successfully!");
+        }
+
+        window.onload = function() {
+            fetchAndRenderRegisteredCourseList();
+            document.getElementById("deleteCourseForm").addEventListener("submit", updateCourse);
+        };
+        function goDash() {
+            window.location.href= 'Udashboard.html';
+        }
+    </script>
+</body>
+</html>
